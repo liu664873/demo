@@ -204,6 +204,8 @@ export default class DynamicObj extends TileObj {
             stepCount = -stepCount;
         }
         for (let i = 0; i < stepCount; i++) {
+            if(i === stepCount - 1) 
+                console.log()
             this.oneStep();
         }
         return this;

@@ -239,7 +239,7 @@ export default class Map {
     } 
 
     overBorder(gridX, gridY) {
-        return gridX < 0 || gridX > this.mapWidth || gridY < 0 || gridY > this.mapHeight;
+        return gridX < 0 || gridX >= this.width || gridY < 0 || gridY >= this.height;
     }
      
     getTileProByIndex(index) {

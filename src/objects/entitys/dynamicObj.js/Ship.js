@@ -102,6 +102,8 @@ export default class Ship extends DynamicObj {
                         return target[prop].apply(target, args);
                     };
                 }
+
+                return Reflect.get(target, prop, receiver);
             },
 
         };

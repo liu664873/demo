@@ -107,8 +107,14 @@ def echo(event):
 
             spaceCount = getStartSpaceCount(line_dict[i][1])
 
+            lineIsElse = False
+            if i < len_lines - 1:
+                if re.match(r'else\s*:', line[1].strip()):
+                    lineIsElse = True
+                if re.search(r'elif\s*', line[1].strip()):
+                    lineIsElse = True   
                     
-            newLines.append(' ' * (spaceCount ) +
+            newLines.append(' ' * (spaceCount + (4 if lineIsElse else 0)) +
                             'handleOneStep(' + str(line_dict[i][0]) + ')')
             
             newLines.append(line_dict[i][1])
