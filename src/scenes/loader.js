@@ -83,9 +83,7 @@ export default class Loader extends Phaser.Scene {
     /**
      * 加载地图数据
      */
-    loadMapData() {
-        
-    }
+    loadMapData() {}
 
     /**
      * 加载精灵图

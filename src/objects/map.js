@@ -170,6 +170,11 @@ export default class Map {
                         } else if ("player" === tilePro.tag) this.player = obj
                     } else if (tilePro.type === "aircraft") {
                         if("ship" === tilePro.name) this.ship = obj
+                        else if("flyer" === tilePro.name) {
+                            const index = this.flyerList.push(obj) - 1
+                            obj.id = index
+                            if (obj.info) obj.info.setContext(`flyer[${index}]`);
+                        }
                     }
                 }
             }

@@ -1,6 +1,7 @@
 import Energy from "../objects/entitys/props/Energy"
 import Player from "../objects/entitys/dynamicObj.js/Player"
 import Ship from "../objects/entitys/dynamicObj.js/Ship"
+import Flyer from "../objects/entitys/dynamicObj.js/Flyer"
 
 export default {
     bule1_crystal: Energy,
@@ -8,5 +9,6 @@ export default {
     green_crystal: Energy,
     red_crystal: Energy,
     player: Player,
-    ship: Ship
+    ship: Ship,
+    flyer: Flyer
 }

@@ -135,7 +135,8 @@ export default class GameManager {
 
     // 解析动作目标
     resolveActionTargets(actionData) {
-        actionData.target = this[actionData.target?.name];
+        if(actionData.target?.name === "flyer") actionData.target = this.flyerList[target.id]
+        else actionData.target = this[actionData.target?.name];
         actionData.targets = (actionData.targets || []).map(obj => this[obj.name]).filter(Boolean);
     }
 
@@ -145,8 +146,30 @@ export default class GameManager {
         this.actionAnims.timeScale = this.animSpeed;
     }
 
-    // 获取当前关卡数据，并可能修改 tilesets
-    getMapData() {
+ 
+// // 获取当前关卡数据，并可能修改 tilesets
+// getMapData() {
+//     const path = require('path'); // 引入 path 模块
+//     const mapData = this.mapDataList[this.curLevel - 1];
+//     if (mapData) {
+//         mapData.tilesets = mapData.tilesets.map(tileset => {
+//             if (tileset && tileset.source) {
+//                 // 使用 path.basename 提取文件名并去除后缀
+//                 const fileNameWithoutExt = path.basename(tileset.source, path.extname(tileset.source));
+//                 const tilesetMapData = this.tilesetMap[fileNameWithoutExt] || {};
+//                 const newTileset = { firstgid: tileset.firstgid, ...tilesetMapData };
+//                 delete newTileset.source;
+//                 return newTileset;
+//             }
+//             return tileset;
+//         });
+//     }
+//     // 如果需要，返回 mapData 或进行其他操作
+//     return mapData;
+// }
+
+      // 获取当前关卡数据，并可能修改 tilesets
+      getMapData() {
         const mapData = this.mapDataList[this.curLevel - 1];
 
         if (mapData) {

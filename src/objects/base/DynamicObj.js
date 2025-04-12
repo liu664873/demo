@@ -63,6 +63,9 @@ export default class DynamicObj extends TileObj {
         this.logicY = gridY;
         this.logicDirection = this.direction;
         this.playAnim(DynamicObj.ANIM_IDLE[this.direction]);
+
+        //添加事件
+        this.events = new Phaser.Events.EventEmitter();
     }
 
     /**
@@ -131,6 +134,7 @@ export default class DynamicObj extends TileObj {
             canMove: canMove,
         });
 
+        this.checkStatus();
         if (canMove) this.updateLogicData(actionData);
         this.saveActionData(actionData); 
 
@@ -221,5 +225,11 @@ export default class DynamicObj extends TileObj {
     turnRight() {
         this.turn("RIGHT");
         return this;
+    }
+
+      // 销毁时清理事件(自动调用)
+    destroy() {
+        this.events.destroy();
+        super.destroy();
     }
 }

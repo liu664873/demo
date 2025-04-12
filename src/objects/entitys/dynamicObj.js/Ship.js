@@ -37,16 +37,18 @@ export default class Ship extends DynamicObj {
         }
  
         // 获取目标位置下方建筑瓦片属性、下方对象瓦片属性、当前层建筑瓦片属性和当前层对象瓦片属性。
-        const lowPlotTilePro = this.map.getTilePro(gridX, gridY, this.layerIndex - 1, "plot");
         const curFloorTilePro = this.map.getTilePro(gridX, gridY, this.layerIndex, "floor");
         const curObjTilePro = this.map.getTilePro(gridX, gridY, this.layerIndex, "obj");
 
+        let collide = curFloorTilePro || curObjTilePro?.collide;
 
-        const collide = lowPlotTilePro|| curFloorTilePro || curObjTilePro?.collide;
+        if(this.driver) {
+            const plotTilePro = this.map.getTilePro(gridX, gridY, this.driver.layerIndex, "plot");
+            const objTilePro = this.map.getTilePro(gridX, gridY, this.driver.layerIndex, "obj");
+            collide = collide || plotTilePro?.collide || objTilePro?.collide;
+        }
 
- 
-        // return !collide && (!this.driver || this.driver.canMove(gridX, gridY)); 
-        return !collide;
+        return !collide; 
     } 
 
     /**
@@ -78,9 +80,11 @@ export default class Ship extends DynamicObj {
         if( tilePro.canDrive ) {
             this.driver = obj;
             this.driver.driving = true;
+            this.drived = true;
         } else if(this.driver){
             this.driver.driving = false;
             this.driver = null;
+            this.drived = false;
         }
     }
 

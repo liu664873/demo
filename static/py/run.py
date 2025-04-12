@@ -11,6 +11,7 @@ player = manager.getPlayer()
 ship = manager.getShip()
 energy = manager.getEnergyList()
 flyer = manager.getFlyerList()
+print(flyer)
 '''
 
 # player = manager.player
@@ -59,6 +60,7 @@ def echo(event):
     # 获取编辑器上输入的代码
     code = manager.editor.getValue()
 
+
     try: 
     
         old_lines = code.split('\n')
@@ -83,7 +85,6 @@ def echo(event):
            
                 line_dict.append([i + 1, line])
 
-        #print('line_dict', line_dict)
         analysis_result = manager.editor.analysisPythonCode(line_dict)
         if analysis_result.error != "":
             error_str = analysis_result.error
@@ -93,8 +94,8 @@ def echo(event):
         newLines = []
 
         for i in range(len(line_dict)):
+            len_lines = len(line_dict)
             line = line_dict[i]
-
             
             # #判断缩进是否正确
             # lineHasColon = line[1].strip()[-1] == ':'
@@ -106,7 +107,8 @@ def echo(event):
 
             spaceCount = getStartSpaceCount(line_dict[i][1])
 
-            newLines.append(' ' * (spaceCount) +
+                    
+            newLines.append(' ' * (spaceCount ) +
                             'handleOneStep(' + str(line_dict[i][0]) + ')')
             
             newLines.append(line_dict[i][1])
@@ -114,8 +116,7 @@ def echo(event):
         new_code = '\n'.join(newLines)
         
         code = code_head + new_code + code_tail
-        print(new_code)
-
+        
         exec(code)
     except SyntaxError as exc:
 

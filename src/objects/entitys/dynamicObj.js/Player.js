@@ -63,6 +63,7 @@ export default class Player extends DynamicObj {
         // 判断目标位置是否允许通过（即是否有carrier属性且没有collide属性）。
         const carry = lowPlotTilePro?.carrier || curAircraftTilePro?.carrier || curFloorTilePro?.carrier;
         const collide = curPlotTilePro?.collide || curObjTilePro?.collide;
+        
 
         return carry && !collide;
     }
@@ -79,6 +80,10 @@ export default class Player extends DynamicObj {
 
         // 如果找到的对象具有canCarry属性，则更新玩家的载具对象和驾驶状态。
         if (tilePro?.canCarry) {
+            if(this.aircraft) {
+                this.aircraft.driver = null;
+                this.aircraft.dirved = false;
+            }
             this.aircraft = obj;
             this.driving = true;
         } else {
